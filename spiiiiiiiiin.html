@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polska4AU</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .wrapper {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            margin: 20px auto;
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 8px solid white;
+            background: conic-gradient(
+                #4caf50 0deg 120deg,
+                #f44336 120deg 240deg,
+                #2196f3 240deg 360deg
+            );
+            transition: transform 4s cubic-bezier(0.15, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .label {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px 4px black;
+            color: white;
+        }
+
+        .tak {
+            top: 25%;
+            left: 65%;
+        }
+
+        .nie {
+            top: 70%;
+            left: 70%;
+        }
+
+        .plus {
+            top: 55%;
+            left: 25%;
+        }
+
+        .pointer {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-top: 35px solid yellow;
+            z-index: 10;
+        }
+
+        button {
+            margin-top: 30px;
+            padding: 12px 28px;
+            font-size: 18px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            background: white;
+            color: #111;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #ddd;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        #counter {
+            margin-top: 10px;
+            font-size: 22px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-image"></div>
+
+    <nav class="navbar">
+        <ul>
+            <li class="logo">Polska 4</li>
+            <li class="logo2">Arena Ultimax</li>
+        </ul>
+
+        <div class="nav-group">
+            <div class="nav-title">Pierdoły Krisa</div>
+
+            <div class="nav-links">
+                <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">:3</a>
+                <a href="fastfetch.html">Fastfetch</a>
+                <a href="spiiiiiiiiin.html">Koło Fortuny</a>
+                <a href="index.html">Discord</a>
+            </div>
+        </div>
+    </nav>  
+
+    <main class="center-wrapper">
+        <div class="discord-box">
+
+            <h1>Koło Fortuny</h1>
+
+            <div class="wrapper">
+                <div class="pointer"></div>
+
+                <div class="wheel" id="wheel">
+                    <div class="label tak">Tak</div>
+                    <div class="label nie">Nie</div>
+                    <div class="label plus">+100</div>
+                </div>
+            </div>
+
+            <button onclick="spin()">Kręć</button>
+
+            <div id="result"></div>
+            <div id="counter"></div>
+
+        </div>
+    </main>
+
+    <script>
+        const wheel = document.getElementById("wheel");
+        const result = document.getElementById("result");
+        const counterText = document.getElementById("counter");
+
+        const options = ["Tak", "Nie", "+100 do countera"];
+
+        let rotation = 0;
+        let counter = 0;
+        let spinning = false;
+
+        function spin() {
+            if (spinning) return;
+
+            spinning = true;
+
+            result.textContent = "";
+
+            const chosenIndex = Math.floor(Math.random() * options.length);
+
+            const sectorSize = 360 / options.length;
+            const targetAngle = chosenIndex * sectorSize + sectorSize / 2;
+
+            const extraSpins = 5 * 360;
+            const finalRotation = extraSpins + (360 - targetAngle);
+
+            rotation += finalRotation;
+
+            wheel.style.transform = `rotate(${rotation}deg)`;
+
+            setTimeout(() => {
+                const chosen = options[chosenIndex];
+
+                result.textContent = "";
+
+                if (chosen === "+100 do countera") {
+                    counter += 100;
+                    counterText.textContent = "";
+                }
+
+                spinning = false;
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
