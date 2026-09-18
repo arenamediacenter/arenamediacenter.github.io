@@ -1,9 +1,16 @@
 @charset "UTF-8";
 
+
+
+
+
 .photo {
     width: 330px;
     height: 220px;
 }
+
+
+
 
 .post-banner {
     position: fixed;
